@@ -7,11 +7,7 @@ module Id
       end
 
       def inferred_class
-        if hierarchy.defines_child?
-          hierarchy.parent.const_get(inferred_class_name)
-        else
-          inferred_class_name.constantize
-        end
+        hierarchy.parent.const_get(inferred_class_name)
       end
 
       def inferred_class_name
@@ -27,10 +23,6 @@ module Id
         def initialize(path, child)
           @path = path
           @child = child
-        end
-
-        def defines_child?
-          !parent.nil?
         end
 
         def parent

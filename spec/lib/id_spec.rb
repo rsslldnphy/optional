@@ -15,6 +15,7 @@ class TestModel
   has_one :aliased_model, type: NestedModel
   has_one :nested_model, key: 'aliased_model'
   has_one :extra_nested_model
+  has_one :test_model
   has_many :nested_models
 
   class ExtraNestedModel
@@ -26,6 +27,7 @@ end
 describe Id::Model do
   let (:model) { TestModel.new(foo: 3,
                                baz: 6,
+                               test_model: {},
                                aliased_model: { 'yak' => 11},
                                nested_models: [{ 'yak' => 11}, { yak: 14 }],
                                extra_nested_model: { cats!: "MIAOW" }) }
@@ -56,6 +58,9 @@ describe Id::Model do
     it "allows associations to be nested within the class" do
       model.extra_nested_model.should be_a TestModel::ExtraNestedModel
       model.extra_nested_model.cats!.should eq 'MIAOW'
+    end
+    it "allows recursively defined models" do
+      model.test_model.should be_a TestModel
     end
   end
 
