@@ -1,77 +1,111 @@
-require 'active_support/inflector'
-require 'active_support/core_ext/string/inflections'
-require 'bson'
+require_relative 'old'
 
 module Id
-  def initialize(data)
-    @data = data
+
+  class MissingAttributeError < StandardError
   end
 
-  def data
-    @data.has_key?(:_id) ? @data : @data.merge!(_id: BSON::ObjectId.new)
+  attr_reader :data
+
+  def initialize(data)
+    @data = Hash[data.map { |k, v| [k.to_s, v] }]
   end
 
   def self.included(base)
-    base.extend(DocumentDescriptor)
+    base.extend(Descriptor)
   end
 
-  module DocumentDescriptor
+  module Descriptor
+    def field(f, options={})
+      Field.new(self, f, options).define
+    end
 
     def has_one(f, options={})
-      type = options.fetch(:type, nil) || association_class(f)
-      key = options.fetch(:key, nil) || f
-      define_method f do
-        instance_variable_get(:"@#{f}") ||
-          instance_variable_set(:"@#{f}", type.new(data.fetch(key.to_s)))
-      end
+      HasOne.new(self, f, options).define
     end
-
-    def has_many(f, options={})
-      type = options.fetch(:type, nil) || association_class(f)
-      key = options.fetch(:key, nil) || f
-      define_method f do
-        instance_variable_get(:"@#{f}") ||
-          instance_variable_set(:"@#{f}", data.fetch(key.to_s).map {|x| type.new(x) } )
-      end
-    end
-
-    def field(f, options={})
-      key = options.fetch(:key, f)
-      if options.has_key?(:default)
-        define_field_with_default(f, key, options)
-      else
-        define_field(f, key)
-      end
-    end
-
-    private
-
-    def association_class(f)
-      class_name = f.to_s.classify
-      hierarchy = name.split("::").reduce([]) do |acc, name|
-        acc + ["#{acc.last + '::' unless acc.last.nil?}#{name}"]
-      end.map(&:constantize)
-      module_name = hierarchy.find{ |m| m.const_defined? class_name }
-      if const_defined?(class_name) then const_get(class_name)
-      elsif module_name.nil? then class_name.constantize
-      else module_name.const_get(class_name) end
-    end
-
-
-    def define_field(f, key)
-      define_method f do
-        data.fetch(key.to_s)
-      end
-    end
-
-    def define_field_with_default(f, key, options)
-      default = options.fetch(:default)
-      default_proc = default.is_a?(Proc) ? default : lambda { default }
-      define_method f do
-        data.fetch(key.to_s, default_proc.call)
-      end
-    end
-
   end
 
+  class Field
+
+    def initialize(model, name, options)
+      @model = model
+      @name = name
+      @options = options
+    end
+
+    def define
+      field = self
+      model.define_method name do
+        data.fetch(field.key) { field.default or raise MissingAttributeError }
+      end
+    end
+
+    def key
+      options.fetch(:key, name).to_s
+    end
+
+    def default
+      options.fetch(:default, nil)
+    end
+
+    attr_reader :model, :name, :options
+  end
+
+  class HasOne < Field
+    def define
+      field = self
+      model.define_method name do
+        field.type.new(data.fetch(field.key) { raise MissingAttributeError })
+      end
+    end
+
+    def type
+      options.fetch(:type)
+    end
+
+    def inferred_class
+      if hierarchy.defines_child?
+        hierarchy.parent.const_get(inferred_class_name)
+      else
+        inferred_class_name.constantize
+      end
+    end
+
+    def inferred_class_name
+      @inferred_class_name ||= name.to_s.classify
+    end
+
+    def hierarchy
+      @hierarchy ||= Hierarchy.new(model.name, name)
+    end
+
+    class Hierarchy
+
+      def initialize(path, child)
+        @path = path
+        @child = child
+      end
+
+      def defines_child?
+        !parent.nil?
+      end
+
+      def parent
+        @parent ||= constants.find { |c| c.const_defined? child }
+      end
+
+      def constants
+        hierarchy.map(&:constantize)
+      end
+
+      private
+
+      def hierarchy(name=path)
+        name.match /(.*)::.*$/
+        $1 ? [name] + hierarchy($1) : [name]
+      end
+
+      attr_reader :path, :child
+    end
+  end
 end
