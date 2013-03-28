@@ -3,8 +3,6 @@ PATH
   specs:
     id (0.0.0)
       active_support
-      bson
-      bson_ext
 
 GEM
   remote: http://rubygems.org/
@@ -12,9 +10,6 @@ GEM
     active_support (3.0.0)
       activesupport (= 3.0.0)
     activesupport (3.0.0)
-    bson (1.8.4)
-    bson_ext (1.8.4)
-      bson (~> 1.8.4)
     diff-lcs (1.2.1)
     multi_json (1.7.2)
     rspec (2.13.0)

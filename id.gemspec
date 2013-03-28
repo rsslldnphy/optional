@@ -9,8 +9,6 @@ Gem::Specification.new do |s|
   s.files       = ["lib/id.rb"]
   s.homepage    = 'http://rubygems.org/gems/id'
 
-  s.add_dependency "bson"
-  s.add_dependency "bson_ext"
   s.add_dependency "active_support"
 
   s.add_development_dependency "rspec"
