@@ -1,0 +1,13 @@
+PATH
+  remote: .
+  specs:
+    id (0.0.0)
+
+GEM
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  id!
