@@ -4,7 +4,7 @@ module Id
 
       def define
         field = self
-        model.define_method name do
+        model.send :define_method, name do
           memoize field.name do
             field.type.new(data.fetch(field.key) { raise MissingAttributeError })
           end

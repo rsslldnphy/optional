@@ -10,7 +10,7 @@ module Id
 
       def define
         field = self
-        model.define_method name do
+        model.send :define_method, name do
           data.fetch(field.key) { field.default or raise MissingAttributeError }
         end
       end
