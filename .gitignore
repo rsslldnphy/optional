@@ -1,0 +1,6 @@
+/.bundle
+/log/*.log
+/tmp
+/tags
+/coverage
+*.gem
