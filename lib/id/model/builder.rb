@@ -13,6 +13,17 @@ module Id
 
       private
 
+      def set(f, value)
+        self.class.new(model, data.merge(f.to_s => ensure_hash(value)))
+      end
+
+      def ensure_hash(value)
+        case value
+        when Id::Model then value.data
+        when Array then value.map { |v| ensure_hash(v) }
+        else value end
+      end
+
       attr_reader :model, :data
 
       def self.included(base)
@@ -23,7 +34,7 @@ module Id
 
         def field(f)
           define_method f do |value|
-            self.class.new(model, data.merge(f.to_s => value))
+            set(f, value)
           end
         end
 

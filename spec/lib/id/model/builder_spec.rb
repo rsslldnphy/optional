@@ -6,6 +6,7 @@ class BuilderModel
   field :foo
   field :bar
   has_one :nested_builder_model
+  has_many :nested_builder_models
 
   class NestedBuilderModel
     include Id::Model
@@ -28,10 +29,16 @@ module Id
       model.bar.should eq "hello cat"
     end
 
-    it 'allows setting of associations using their respective builders' do
+    it 'allows setting of has_one associations using their respective builders' do
       nested_model = BuilderModel::NestedBuilderModel.builder.baz(:quux).build
       model = BuilderModel.builder.nested_builder_model(nested_model).build
       model.nested_builder_model.baz.should eq :quux
+    end
+
+    it 'allows setting of has_many associations using their respective builders' do
+      nested_model = BuilderModel::NestedBuilderModel.builder.baz(:quux).build
+      model = BuilderModel.builder.nested_builder_models([nested_model]).build
+      model.nested_builder_models.first.baz.should eq :quux
     end
 
   end
