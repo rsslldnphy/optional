@@ -72,5 +72,13 @@ describe Id::Model do
       model.nested_models.last.yak.should eq 14
     end
   end
+
+  describe "#set" do
+    it "creates a new model with the provided values changed" do
+      model.set(foo: 999).should be_a TestModel
+      model.set(foo: 999).foo.should eq 999
+    end
+  end
+
 end
 

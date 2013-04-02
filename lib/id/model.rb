@@ -6,6 +6,10 @@ module Id
       @data = Hash[data.map { |k, v| [k.to_s, v] }]
     end
 
+    def set(values)
+      self.class.new(data.merge(values))
+    end
+
     private
 
     def self.included(base)
