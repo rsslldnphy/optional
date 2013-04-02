@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'id'
-  s.version       = '0.0.3'
+  s.version       = '0.0.4'
   s.date          = '2013-03-28'
   s.summary       = "Simple models based on hashes"
   s.description   = "Developed at On The Beach Ltd. Contact russell.dunphy@onthebeach.co.uk"
@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split($\)
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
-  s.homepage      = 'http://rubygems.org/gems/id'
+  s.homepage      = 'http://github.com/onthebeach/id'
 
   s.add_dependency "activesupport"
 
