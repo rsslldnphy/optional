@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'id'
-  s.version       = '0.0.5'
+  s.version       = '0.0.6'
   s.date          = '2013-03-28'
   s.summary       = "Simple models based on hashes"
   s.description   = "Developed at On The Beach Ltd. Contact russell.dunphy@onthebeach.co.uk"
