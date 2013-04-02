@@ -3,7 +3,7 @@ module Id
     attr_reader :data
 
     def initialize(data)
-      @data = Hash[data.map { |k, v| [k.to_s, v] }]
+      @data = Hash[data.map { |k, v| [k.to_s, v.is_a?(Id::Model) ? v.data : v] }]
     end
 
     def set(values)

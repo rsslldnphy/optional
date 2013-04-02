@@ -32,6 +32,14 @@ describe Id::Model do
                                nested_models: [{ 'yak' => 11}, { yak: 14 }],
                                extra_nested_model: { cats!: "MIAOW" }) }
 
+
+  describe ".new" do
+    it 'converts any passed id models to their hash representations' do
+      new_model = TestModel.new(test_model: model)
+      new_model.test_model.data.should eq model.data
+    end
+  end
+
   describe ".field" do
     it 'defines an accessor on the model' do
       model.foo.should eq 3
