@@ -92,6 +92,10 @@ describe Id::Model do
     it 'returns a new basket minus the passed key' do
       expect { model.set(foo: 999, bar: 555).remove(:foo, :bar).foo }.to raise_error Id::MissingAttributeError
     end
+
+    it 'does not error if the key to be removed does not exist' do
+      expect { model.remove(:not_in_hash) }.to_not raise_error
+    end
   end
 
 end
