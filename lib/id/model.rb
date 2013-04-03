@@ -10,8 +10,8 @@ module Id
       self.class.new(data.merge(values))
     end
 
-    def remove(key)
-      self.class.new(data.except(key.to_s))
+    def remove(*keys)
+      self.class.new(data.except(*keys.map(&:to_s)))
     end
 
     private

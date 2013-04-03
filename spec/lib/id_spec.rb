@@ -90,7 +90,7 @@ describe Id::Model do
 
   describe "#remove" do
     it 'returns a new basket minus the passed key' do
-      expect { model.set(foo: 999).remove(:foo).foo }.to raise_error Id::MissingAttributeError
+      expect { model.set(foo: 999, bar: 555).remove(:foo, :bar).foo }.to raise_error Id::MissingAttributeError
     end
   end
 
