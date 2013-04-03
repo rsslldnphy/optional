@@ -10,6 +10,10 @@ module Id
       self.class.new(data.merge(values))
     end
 
+    def remove(key)
+      self.class.new(data.except(key.to_s))
+    end
+
     private
 
     def self.included(base)
