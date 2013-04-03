@@ -6,7 +6,8 @@ module Id
         field = self
         model.send :define_method, name do
           memoize field.name do
-            field.type.new(data.fetch(field.key, nil))
+            child = data.fetch(field.key, nil)
+            field.type.new(child) unless child.nil?
           end
         end
       end
