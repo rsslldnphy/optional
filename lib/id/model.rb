@@ -3,7 +3,11 @@ module Id
     attr_reader :data
 
     def initialize(data)
-      @data = Hash[data.map { |k, v| [k.to_s, v] }]
+      @data = Hashifier.new(data).hashify
+    end
+
+    def set(values)
+      self.class.new(data.merge(values))
     end
 
     private

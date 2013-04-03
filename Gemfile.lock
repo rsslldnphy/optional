@@ -1,16 +1,17 @@
 PATH
   remote: .
   specs:
-    id (0.0.1)
-      active_support
+    id (0.0.5)
+      activesupport
 
 GEM
   remote: https://rubygems.org/
   specs:
-    active_support (3.0.0)
-      activesupport (= 3.0.0)
-    activesupport (3.0.0)
+    activesupport (3.2.11)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
     diff-lcs (1.2.1)
+    i18n (0.6.1)
     multi_json (1.7.2)
     rspec (2.13.0)
       rspec-core (~> 2.13.0)

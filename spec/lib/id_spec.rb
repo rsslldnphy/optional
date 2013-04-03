@@ -32,6 +32,14 @@ describe Id::Model do
                                nested_models: [{ 'yak' => 11}, { yak: 14 }],
                                extra_nested_model: { cats!: "MIAOW" }) }
 
+
+  describe ".new" do
+    it 'converts any passed id models to their hash representations' do
+      new_model = TestModel.new(test_model: model)
+      new_model.test_model.data.should eq model.data
+    end
+  end
+
   describe ".field" do
     it 'defines an accessor on the model' do
       model.foo.should eq 3
@@ -72,5 +80,13 @@ describe Id::Model do
       model.nested_models.last.yak.should eq 14
     end
   end
+
+  describe "#set" do
+    it "creates a new model with the provided values changed" do
+      model.set(foo: 999).should be_a TestModel
+      model.set(foo: 999).foo.should eq 999
+    end
+  end
+
 end
 
