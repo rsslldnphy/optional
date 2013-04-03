@@ -32,7 +32,7 @@ module Id
 
       module FieldBuilder
 
-        def field(f)
+        def define_setter(f)
           define_method f do |value|
             set(f, value)
           end

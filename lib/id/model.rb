@@ -19,17 +19,17 @@ module Id
     module Descriptor
       def field(f, options={})
         Field.new(self, f, options).define
-        builder_class.field f
+        builder_class.define_setter f
       end
 
       def has_one(f, options={})
         HasOne.new(self, f, options).define
-        builder_class.field f
+        builder_class.define_setter f
       end
 
       def has_many(f, options={})
         HasMany.new(self, f, options).define
-        builder_class.field f
+        builder_class.define_setter f
       end
 
       def builder
