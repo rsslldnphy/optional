@@ -2,7 +2,7 @@ module Id
   module Model
     class HasOne < Association
 
-      def define
+      def define_getter
         field = self
         model.send :define_method, name do
           memoize field.name do

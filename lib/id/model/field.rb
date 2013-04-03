@@ -8,11 +8,20 @@ module Id
         @options = options
       end
 
-      def define
+      def define_getter
         field = self
         model.send :define_method, name do
           data.fetch(field.key) { field.default or raise MissingAttributeError }
         end
+      end
+
+      def define_setter
+        model.send(:builder_class).define_setter name
+      end
+
+      def define
+        define_getter
+        define_setter
       end
 
       def key
