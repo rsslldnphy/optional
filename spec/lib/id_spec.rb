@@ -86,6 +86,12 @@ describe Id::Model do
       model.set(foo: 999).should be_a TestModel
       model.set(foo: 999).foo.should eq 999
     end
+
+    it "allows setting on nested models" do
+      updated = model.nested_model.set(yak: 12345)
+      updated.should be_a TestModel
+      updated.nested_model.yak.should eq 12345
+    end
   end
 
   describe "#remove" do

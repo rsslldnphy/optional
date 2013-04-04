@@ -2,12 +2,13 @@ module Id
   module Model
     attr_reader :data
 
-    def initialize(data)
+    def initialize(parent_setter=identity, data)
+      @parent_setter = parent_setter
       @data = Hashifier.new(data).hashify
     end
 
     def set(values)
-      self.class.new(data.merge(values))
+      parent_setter.call self.class.new(data.merge(values))
     end
 
     def remove(*keys)
@@ -15,6 +16,16 @@ module Id
     end
 
     private
+
+    attr_reader :parent_setter
+
+    def identity
+      lambda { |m| m }
+    end
+
+    def setter(f)
+      lambda { |v| set(f => v) }
+    end
 
     def self.included(base)
       base.extend(Descriptor)
