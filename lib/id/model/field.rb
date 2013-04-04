@@ -19,9 +19,17 @@ module Id
         model.send(:builder_class).define_setter name
       end
 
+      def define_is_present
+        field = self
+        model.send :define_method, "#{name}?" do
+          data.has_key?(field.key) && !data.fetch(field.key).nil?
+        end
+      end
+
       def define
         define_getter
         define_setter
+        define_is_present
       end
 
       def key

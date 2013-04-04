@@ -98,5 +98,13 @@ describe Id::Model do
     end
   end
 
+  describe "#fields are present methods" do
+    it 'allows you to check if fields are present' do
+      model = TestModel.new(foo: 1)
+      model.foo?.should be_true
+      model.bar?.should be_false
+    end
+  end
+
 end
 
