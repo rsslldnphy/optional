@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     id (0.0.6)
-      activemodel
       activesupport
 
 GEM
@@ -35,6 +34,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activemodel
   id!
   rspec
   simplecov

@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   s.homepage      = 'http://github.com/onthebeach/id'
 
   s.add_dependency "activesupport"
-  s.add_dependency "activemodel"
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "simplecov"
+  s.add_development_dependency "activemodel"
 
 end
