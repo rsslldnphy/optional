@@ -5,9 +5,9 @@ module Id
   describe Option do
 
     subject do
-      option.match do
-        some { |x| x.succ }
-        none { :canteloupe }
+      option.match do |m|
+        m.some { |x| x.succ }
+        m.none { :canteloupe }
       end
     end
 
@@ -22,33 +22,33 @@ module Id
     end
 
     it 'allows guards that are constants' do
-      Some[5].match do
-        some(3) { :hello }
-        some(5) { :xyzzy }
+      Some[5].match do |m|
+        m.some(3) { :hello }
+        m.some(5) { :xyzzy }
       end.should eq :xyzzy
     end
 
     it 'allows guards that are lambdas' do
-      Some[5].match do
-        some ->(x){ x > 6 } { :hello }
-        some ->(x){ x > 3 } { :xyzzy }
-        none                { :cats  }
+      Some[5].match do |m|
+        m.some ->(x){ x > 6 } { :hello }
+        m.some ->(x){ x > 3 } { :xyzzy }
+        m.none                { :cats  }
       end.should eq :xyzzy
     end
 
     it 'throws a BadMatchError if there is no matching clause' do
       expect do
-        Some[5].match do
-          some(4) { :hello }
-          none    { :cats  }
+        Some[5].match do |m|
+          m.some(4) { :hello }
+          m.none    { :cats  }
         end
       end.to raise_error BadMatchError
     end
 
     it 'allows matching on class' do
-      Some[5].match do
-        some (kind_of Fixnum) { |x| x + 5 }
-        some (kind_of String) { :dogs }
+      Some[5].match do |m|
+        m.some (kind_of Fixnum) { |x| x + 5 }
+        m.some (kind_of String) { :dogs }
       end.should eq 10
     end
   end

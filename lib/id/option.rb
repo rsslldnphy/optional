@@ -57,7 +57,7 @@ module Id
     end
 
     def match(&block)
-      Match.new.tap { |m| m.instance_eval(&block) }.evaluate(self)
+      Match.new.tap { |m| block.call(m) }.evaluate(self)
     end
 
   end
