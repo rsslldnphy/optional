@@ -36,12 +36,13 @@ module Id
     end
 
     module Descriptor
+
       def field(f, options={})
         Field.new(self, f, options).define
       end
 
       def has_one(f, options={})
-        HasOne.new(self, f, options).define
+        (options[:optional] ? HasOneOption : HasOne).new(self, f, options).define
       end
 
       def has_many(f, options={})
