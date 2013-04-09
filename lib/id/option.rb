@@ -33,10 +33,6 @@ module Id
         end
       end
 
-      def kind_of(type)
-        ->(x) { x.is_a? type }
-      end
-
       private
 
       def matched(option)

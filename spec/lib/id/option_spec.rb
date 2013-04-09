@@ -45,12 +45,6 @@ module Id
       end.to raise_error BadMatchError
     end
 
-    it 'allows matching on class' do
-      Some[5].match do |m|
-        m.some (kind_of Fixnum) { |x| x + 5 }
-        m.some (kind_of String) { :dogs }
-      end.should eq 10
-    end
   end
 
   describe None do

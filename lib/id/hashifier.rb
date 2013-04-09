@@ -1,6 +1,10 @@
 module Id
   class Hashifier
 
+    def self.hashify(data)
+      new(data).hashify
+    end
+
     def initialize(data)
       @data = data
     end

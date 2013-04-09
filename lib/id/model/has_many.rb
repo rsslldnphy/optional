@@ -6,7 +6,7 @@ module Id
         field = self
         model.send :define_method, name do
           memoize field.name do
-            data.fetch(field.key, []).map { |r| field.type.new(setter(field.key), r) }
+            data.fetch(field.key, []).map { |r| field.type.new(r) }
           end
         end
       end
