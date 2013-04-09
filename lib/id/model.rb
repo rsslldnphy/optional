@@ -11,7 +11,7 @@ module Id
       parent_setter.call self.class.new(data.merge(values))
     end
 
-    def remove(*keys)
+    def unset(*keys)
       self.class.new(data.except(*keys.map(&:to_s)))
     end
 
