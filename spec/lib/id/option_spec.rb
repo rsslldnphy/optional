@@ -5,7 +5,7 @@ module Id
   describe Option do
 
     subject do
-      Option.match option do
+      option.match do
         some { |x| x.succ }
         none { :canteloupe }
       end
@@ -22,14 +22,14 @@ module Id
     end
 
     it 'allows guards that are constants' do
-      Option.match Some[5] do
+      Some[5].match do
         some(3) { :hello }
         some(5) { :xyzzy }
       end.should eq :xyzzy
     end
 
     it 'allows guards that are lambdas' do
-      Option.match Some[5] do
+      Some[5].match do
         some ->(x){ x > 6 } { :hello }
         some ->(x){ x > 3 } { :xyzzy }
         none                { :cats  }
@@ -38,25 +38,18 @@ module Id
 
     it 'throws a BadMatchError if there is no matching clause' do
       expect do
-        Option.match Some[5] do
+        Some[5].match do
           some(4) { :hello }
           none    { :cats  }
         end
       end.to raise_error BadMatchError
     end
 
-    it 'throws an argument error if it is passed a non-option' do
-      expect do
-        Option.match 5 do
-        end
-      end.to raise_error ArgumentError
-    end
-
     it 'allows matching on class' do
-      Option.match Some[5] do
-        some (kind_of Fixnum) { :cats }
+      Some[5].match do
+        some (kind_of Fixnum) { |x| x + 5 }
         some (kind_of String) { :dogs }
-      end.should eq :cats
+      end.should eq 10
     end
   end
 
@@ -97,6 +90,10 @@ module Id
 
     it 'is not equal to none' do
       subject.should_not eq None
+    end
+
+    it 'can be flatmapped into a collection' do
+      [Some[4], None, Some[3], Some[2], None, None].flat_map(&:to_a).should eq [4,3,2]
     end
   end
 end

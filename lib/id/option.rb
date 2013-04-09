@@ -30,8 +30,6 @@ module Id
           matched(option).call(option.get)
         when None
           none_block.call
-        else
-          raise ArgumentError, "Passed a #{option.class} to match - it is not an option"
         end
       end
 
@@ -58,9 +56,10 @@ module Id
       attr_reader :some_blocks, :none_block
     end
 
-    def self.match(option, &block)
-      Match.new.tap { |m| m.instance_eval(&block) }.evaluate(option)
+    def match(&block)
+      Match.new.tap { |m| m.instance_eval(&block) }.evaluate(self)
     end
+
   end
 
   class Some
