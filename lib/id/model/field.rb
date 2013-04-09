@@ -11,7 +11,7 @@ module Id
       def define_getter
         field = self
         model.send :define_method, name do
-          data.fetch(field.key) { field.default or raise MissingAttributeError }
+          data.fetch(field.key, &field.default_value)
         end
       end
 
@@ -36,8 +36,16 @@ module Id
         options.fetch(:key, name).to_s
       end
 
+      def default_value
+        proc { optional? ? nil : (default or raise MissingAttributeError) }
+      end
+
       def default
         options.fetch(:default, nil)
+      end
+
+      def optional?
+        options.fetch(:optional, false)
       end
 
       attr_reader :model, :name, :options

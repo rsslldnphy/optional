@@ -10,6 +10,7 @@ class TestModel
 
   field :foo
   field :bar, key: 'baz'
+  field :qux, optional: true
   field :quux, default: 'kwak'
 
   has_one :aliased_model, type: NestedModel
@@ -51,6 +52,16 @@ describe Id::Model do
 
     it 'allows default values' do
       model.quux.should eq 'kwak'
+    end
+
+    describe "optional flag" do
+      it 'allows optional' do
+        model.qux.should be_nil
+      end
+
+      it 'should not raise an error' do
+        expect{model.qux}.not_to raise_error Id::MissingAttributeError
+      end
     end
 
   end
