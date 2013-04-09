@@ -51,6 +51,13 @@ module Id
         end
       end.to raise_error ArgumentError
     end
+
+    it 'allows matching on class' do
+      Option.match Some[5] do
+        some (kind_of Fixnum) { :cats }
+        some (kind_of String) { :dogs }
+      end.should eq :cats
+    end
   end
 
   describe None do

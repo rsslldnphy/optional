@@ -35,6 +35,10 @@ module Id
         end
       end
 
+      def kind_of(type)
+        ->(x) { x.is_a? type }
+      end
+
       private
 
       def matched(option)
@@ -82,8 +86,8 @@ module Id
       false
     end
 
-    def some?
-      true
+    def some?(type=obj.class)
+      obj.class == type
     end
 
     def == other
@@ -109,7 +113,7 @@ module Id
       true
     end
 
-    def some?
+    def some?(type=nil)
       false
     end
 
