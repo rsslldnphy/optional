@@ -19,6 +19,7 @@ module Id
       case v
       when Id::Model then v.data
       when Array then v.first.is_a?(Id::Model) ? v.map(&:data) : v
+      when Hash then Hashifier.hashify(v)
       else v end
     end
 
