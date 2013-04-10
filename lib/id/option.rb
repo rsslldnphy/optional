@@ -6,6 +6,9 @@ module Id
   class BadMatchError < StandardError
   end
 
+  class NoOptionValueError < StandardError
+  end
+
   module Option
     include Enumerable
 
@@ -27,7 +30,7 @@ module Id
       def evaluate(option)
         case option
         when Some
-          matched(option).call(option.get)
+          matched(option).call(option.value)
         when None
           none_block.call
         end
@@ -36,7 +39,7 @@ module Id
       private
 
       def matched(option)
-        some_blocks.find {|(guard, _)| guard.call(option.get) }.tap do |match|
+        some_blocks.find {|(guard, _)| guard.call(option.value) }.tap do |match|
           raise BadMatchError if match.nil?
         end.last
       end
@@ -69,7 +72,7 @@ module Id
       @obj = obj
     end
 
-    def get
+    def value
       obj
     end
 
@@ -87,7 +90,7 @@ module Id
 
     def == other
       case other
-      when Some then obj == other.get
+      when Some then obj == other.value
       else false
       end
     end
@@ -114,6 +117,10 @@ module Id
 
     def == other
       false
+    end
+
+    def value
+      raise NoOptionValueError
     end
   end
 end

@@ -61,6 +61,10 @@ module Id
     it 'is not equal to anything' do
       subject.should_not eq subject
     end
+
+    it 'raises an error if you try to access its value' do
+      expect { subject.value }.to raise_error NoOptionValueError
+    end
   end
 
   describe Some do
