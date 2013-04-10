@@ -64,8 +64,8 @@ module Id
   class Some
     include Option
 
-    def self.[](obj)
-      new(obj)
+    def self.[](*values)
+      values.count == 1 ? new(values.first) : new(values)
     end
 
     def initialize(obj)
@@ -86,6 +86,14 @@ module Id
 
     def some?(type=obj.class)
       obj.class == type
+    end
+
+    def & other
+      other.and_option(self)
+    end
+
+    def and_option(option)
+      Some[[option.value, value].flatten]
     end
 
     def == other
@@ -121,6 +129,14 @@ module Id
 
     def value
       raise NoOptionValueError
+    end
+
+    def & other
+      self
+    end
+
+    def and_option(option)
+      self
     end
   end
 end

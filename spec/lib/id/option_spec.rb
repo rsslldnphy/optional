@@ -45,6 +45,17 @@ module Id
       end.to raise_error BadMatchError
     end
 
+    it 'can be anded to another option' do
+      expect(Some[6] & Some[9]).to eq Some[6,9]
+    end
+
+    it 'can be anded to none' do
+      expect(Some[6] & None).to be_none
+    end
+
+    it 'none can be anded to it' do
+      expect(None & Some[5]).to be_none
+    end
   end
 
   describe None do
