@@ -38,6 +38,10 @@ module Id
         HasMany.new(self, f, options).define
       end
 
+      def compound_field(f, fields, options={})
+        CompoundField.new(self, f, fields, options).define
+      end
+
       def builder
         builder_class.new(self)
       end
