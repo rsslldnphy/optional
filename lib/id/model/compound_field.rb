@@ -11,8 +11,7 @@ module Id
         field = self
         model.send :define_method, name do
           memoize field.name do
-            #FIXME: deal with default values
-            compound = Hash[field.fields.map { |k,v| [k.to_s, data.fetch(v) { raise MissingAttributeError}]}]
+            compound = Hash[field.fields.map { |k,v| [k.to_s, send(v) { raise MissingAttributeError}]}]
             field.type.new(compound)
           end
         end

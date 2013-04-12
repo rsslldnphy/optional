@@ -8,7 +8,7 @@ end
 class CompboundElementModel
   include Id::Model
   field :plugh
-  field :baz
+  field :thud
 end
 
 class TestModel
@@ -18,7 +18,7 @@ class TestModel
   field :bar, key: 'baz'
   field :qux, optional: true
   field :quux, default: 'kwak'
-  compound_field :corge, {plugh: 'foo', thud: 'baz'}, type: CompboundElementModel
+  compound_field :corge, {plugh: 'foo', thud: 'quux'}, type: CompboundElementModel
 
   has_one :aliased_model, type: NestedModel
   has_one :nested_model, key: 'aliased_model'
@@ -76,6 +76,10 @@ describe Id::Model do
   describe ".compound_field" do
     it 'defines an accessor on the model' do
       model.corge.should be_a CompboundElementModel
+    end
+
+    it 'deals with default values' do
+      model.corge.thud.should eq 'kwak'
     end
   end
 
