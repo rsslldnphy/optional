@@ -1,0 +1,42 @@
+class Some
+  include Option
+
+  attr_reader :value
+
+  def initialize(value)
+    @value = value
+  end
+
+  def each
+    yield value
+  end
+
+  def none?(&block)
+    block.nil? ? false : super
+  end
+
+  def value_or
+    value
+  end
+
+  def some?(type=value.class)
+    value.class == type
+  end
+
+  def & other
+    other.and_option(self)
+  end
+
+  def == other
+    other.some? && value == other.value
+  end
+
+  def | other
+    self
+  end
+
+  def self.[](*values)
+    new(values.size == 1 ? values.first : values)
+  end
+
+end

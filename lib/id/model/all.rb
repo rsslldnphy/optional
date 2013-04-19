@@ -1,6 +1,0 @@
-require_relative 'field'
-require_relative 'association'
-require_relative 'has_one'
-require_relative 'has_many'
-require_relative 'builder'
-require_relative 'compound_field'

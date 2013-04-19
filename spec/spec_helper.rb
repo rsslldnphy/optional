@@ -4,7 +4,8 @@ SimpleCov.start do
 end
 
 require 'rspec'
-require_relative '../lib/id'
+require_relative 'support/cat'
+require_relative '../lib/optional'
 
 
 RSpec.configure do |config|
