@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'optional'
-  s.version       = '0.0.1'
+  s.version       = '0.0.2'
   s.date          = '2013-04-19'
   s.summary       = "Optional values with pattern matching"
   s.description   = "Make nils go bye bye with Options!"
@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split($\)
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
-  s.homepage      = 'http://github.com/onthebeach/optional'
+  s.homepage      = 'http://github.com/rsslldnphy/optional'
 
   s.add_development_dependency "rspec"
   s.add_development_dependency "simplecov"
