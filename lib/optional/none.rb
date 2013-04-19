@@ -29,4 +29,7 @@ module None
     other
   end
 
+  def to_s
+    "None"
+  end
 end

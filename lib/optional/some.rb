@@ -35,6 +35,10 @@ class Some
     self
   end
 
+  def to_s
+    "Some[#{value}]"
+  end
+
   def self.[](*values)
     new(values.size == 1 ? values.first : values)
   end

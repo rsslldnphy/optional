@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.version       = '0.0.1'
   s.date          = '2013-04-19'
   s.summary       = "Optional values with pattern matching"
-  s.description   = "Developed at On The Beach Ltd. Contact russell.dunphy@onthebeach.co.uk"
+  s.description   = "Make nils go bye bye with Options!"
   s.authors       = ["Russell Dunphy", "Radek Molenda"]
   s.email         = ['russell@russelldunphy.com', 'radek.molenda@gmail.com']
   s.files         = `git ls-files`.split($\)

@@ -41,4 +41,7 @@ describe Some do
     (Some[cat] | None).should eq Some[cat]
   end
 
+  it "prints as Some[value]" do
+    Some[4].to_s.should eq "Some[4]"
+  end
 end

@@ -36,4 +36,8 @@ describe None do
   it "can be ored with a some, yielding the some" do
     (None | Some[cat]).should eq Some[cat]
   end
+
+  it "prints as None" do
+    None.to_s.should eq "None"
+  end
 end
