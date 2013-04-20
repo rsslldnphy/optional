@@ -4,6 +4,14 @@ describe Option::Enumerable do
 
   let (:cat) { Cat.new("MOGGIE!") }
 
+  describe "#do" do
+    it "allows ops with side effects to be performed using the value as part of a method chain" do
+      names = ""
+      Some[cat].do { |c| names << c.name }.map(&:name).should eq Some["MOGGIE!"]
+      names.should eq "MOGGIE!"
+    end
+  end
+
   describe "#map" do
 
     it "maps a some to a some" do

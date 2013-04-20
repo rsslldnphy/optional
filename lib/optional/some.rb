@@ -28,7 +28,7 @@ class Some
   end
 
   def == other
-    other.some? && value == other.value
+    other.is_a?(Some) && value == other.value
   end
 
   def | other

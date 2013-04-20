@@ -2,6 +2,11 @@ module Option
   module Enumerable
     include ::Enumerable
 
+    def do &block
+      each &block
+      self
+    end
+
     def map
       from_array super
     end
