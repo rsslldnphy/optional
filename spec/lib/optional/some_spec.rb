@@ -45,4 +45,17 @@ describe Some do
   it "prints as Some[value]" do
     Some[4].to_s.should eq "Some[4]"
   end
+
+  it 'can be merged with another some' do
+    Some[3].merge(Some[4]).should eq Some[3,4]
+  end
+
+  it 'can be merged with another some using an operation' do
+    Some[3].merge(Some[4], &:+).should eq Some[7]
+  end
+
+  it 'can be merged with a none' do
+    Some[3].merge(None, &:+).should eq Some[3]
+  end
+
 end

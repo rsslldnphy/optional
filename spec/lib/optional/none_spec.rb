@@ -41,4 +41,12 @@ describe None do
   it "prints as None" do
     None.to_s.should eq "None"
   end
+
+  it "can be merged with another none" do
+    None.merge(None).should be_none
+  end
+
+  it "can be merged with a some" do
+    None.merge(Some[cat]).should eq Some[cat]
+  end
 end

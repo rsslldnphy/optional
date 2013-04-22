@@ -131,4 +131,5 @@ describe Option::Enumerable do
       Some[4].reject(&:odd?).should eq Some[4]
     end
   end
+
 end

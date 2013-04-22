@@ -35,6 +35,13 @@ class Some
     self
   end
 
+  def merge(other, &block)
+    other.match do |m|
+      m.some { |v| block.nil? ? Some[value, v] : Some[block.call(value, v)] }
+      m.none { self }
+    end
+  end
+
   def to_s
     "Some[#{value}]"
   end

@@ -32,4 +32,8 @@ module None
   def to_s
     "None"
   end
+
+  def merge other
+    other
+  end
 end
