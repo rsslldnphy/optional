@@ -24,6 +24,10 @@ describe Option::Enumerable do
       Some[cat, dog].map(&:name).should eq Some["MOGGIE!", "DOGGIE!"]
     end
 
+    it "allows cool chaining" do
+      Some[cat, dog].map(:name, :chars, :first).should eq Some["M", "D"]
+    end
+
     it "also works for collect" do
       Some[cat].collect(&:name).should eq Some["MOGGIE!"]
     end
