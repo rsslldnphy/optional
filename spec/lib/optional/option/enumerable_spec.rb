@@ -3,6 +3,12 @@ require 'spec_helper'
 describe Option::Enumerable do
 
   let (:cat) { Cat.new("MOGGIE!") }
+  let (:dog) { Dog.new("DOGGIE!") }
+
+  it "makes radek less sad :-(" do
+    Some[4].each { |e| e.should be_a Fixnum }
+    Some[4,5].each { |e| e.should be_a Fixnum }
+  end
 
   describe "#do" do
     it "allows ops with side effects to be performed using the value as part of a method chain" do
@@ -15,7 +21,7 @@ describe Option::Enumerable do
   describe "#map" do
 
     it "maps a some to a some" do
-      Some[cat].map(&:name).should eq Some["MOGGIE!"]
+      Some[cat, dog].map(&:name).should eq Some["MOGGIE!", "DOGGIE!"]
     end
 
     it "also works for collect" do
@@ -115,6 +121,10 @@ describe Option::Enumerable do
 
     it "also works as inject" do
       Some[4].inject(:+).should eq 4
+    end
+
+    it "also works within the some" do
+      Some[3,4,5].reduce(:+).should eq 12
     end
   end
 

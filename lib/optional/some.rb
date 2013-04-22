@@ -7,8 +7,8 @@ class Some
     @value = value
   end
 
-  def each
-    yield value
+  def each &block
+    value.is_a?(Array) ? value.each(&block) : block.call(value)
   end
 
   def none?(&block)
