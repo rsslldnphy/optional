@@ -28,8 +28,8 @@ module Option
       from_array super
     end
 
-    def reject
-      from_array super
+    def reject(*args, &block)
+      from_array to_a.reject(*args, &block)
     end
 
     def reduce(*args, &block)
