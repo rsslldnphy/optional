@@ -15,7 +15,7 @@ class Some
     block.nil? ? false : super
   end
 
-  def value_or
+  def value_or(default=nil)
     value
   end
 

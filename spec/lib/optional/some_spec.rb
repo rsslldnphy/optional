@@ -23,6 +23,7 @@ describe Some do
 
   it "can be passed a default value but won't use it" do
     Some[cat].value_or { dog }.should eq cat
+    Some[cat].value_or(dog).should eq cat
   end
 
   it "can be anded with another some" do

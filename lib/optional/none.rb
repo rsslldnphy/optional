@@ -17,8 +17,8 @@ module None
     raise Option::ValueOfNoneError
   end
 
-  def value_or
-    yield
+  def value_or(default=nil, &block)
+    block.nil? ? default : block.call
   end
 
   def & other

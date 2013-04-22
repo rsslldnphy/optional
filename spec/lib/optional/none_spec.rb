@@ -19,6 +19,7 @@ describe None do
 
   it "does, however, allow you to supply a default in place of a value" do
     subject.value_or { cat }.should eq cat
+    subject.value_or(cat).should eq cat
   end
 
   it "can be anded with another none, yielding none" do
