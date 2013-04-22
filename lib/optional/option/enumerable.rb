@@ -7,6 +7,14 @@ module Option
       self
     end
 
+    def to_ary
+      to_a
+    end
+
+    def flatten
+      from_array to_ary.flatten
+    end
+
     def map
       from_array super
     end

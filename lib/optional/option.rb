@@ -14,7 +14,7 @@ module Option
   private
 
   def from_array(values)
-    values.empty? ? None : Some[values.first]
+    values.empty? ? None : Some[*values]
   end
 
   def from_value(value)

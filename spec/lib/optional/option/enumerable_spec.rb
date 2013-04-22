@@ -132,4 +132,13 @@ describe Option::Enumerable do
     end
   end
 
+  describe "#flatten" do
+    it "flattens an array of options" do
+      Some[4].flatten.should eq Some[4]
+      [None, Some[4], Some[2], None].flatten.should eq [4,2]
+      Some[None, Some[4], Some[2], Some[1], None].flatten.should eq Some[4,2,1]
+      Some[None, None].flatten.should eq None
+    end
+  end
+
 end
