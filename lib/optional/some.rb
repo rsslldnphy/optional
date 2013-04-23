@@ -43,7 +43,7 @@ class Some
   end
 
   def to_s
-    "Some[#{value}]"
+    "Some[#{value.inspect}]"
   end
 
   def self.[](*values)
