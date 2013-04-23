@@ -15,6 +15,10 @@ module Option
       from_array to_ary.flatten
     end
 
+    def juxt(*methods)
+      map { |v| methods.map { |m| v.send(m) } }
+    end
+
     def map(*methods)
       if methods.empty?
         from_array super

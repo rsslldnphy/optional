@@ -53,6 +53,16 @@ describe Option::Enumerable do
     end
   end
 
+  describe "#juxt" do
+    it "collects the results of calling the passed methods" do
+      Some[cat].juxt(:name, :class).should eq Some["MOGGIE!", Cat]
+    end
+
+    it "also works for nil" do
+      None.juxt(:name, :class).should be_none
+    end
+  end
+
   describe "#detect" do
     it "returns none if called on a none" do
       None.detect{ |pet| pet.name == "MOGGIE!" }.should be_none
