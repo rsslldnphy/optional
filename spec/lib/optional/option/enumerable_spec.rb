@@ -56,6 +56,7 @@ describe Option::Enumerable do
   describe "#juxt" do
     it "collects the results of calling the passed methods" do
       Some[cat].juxt(:name, :class).should eq Some["MOGGIE!", Cat]
+      Some[1,2,3].juxt(:pred, :succ).should eq Some[[0, 2], [1, 3], [2, 4]]
     end
 
     it "also works for nil" do
