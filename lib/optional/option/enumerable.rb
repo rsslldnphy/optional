@@ -19,12 +19,12 @@ module Option
       map { |v| methods.map { |m| v.send(m) } }
     end
 
-    def map(*methods)
-      if methods.empty?
-        from_array super
-      else
-        methods.reduce(self) { |acc, m| acc.map(&m) }
-      end
+    def map_through(*methods)
+      methods.reduce(self) { |acc, m| acc.map(&m) }
+    end
+
+    def map
+      from_array super
     end
     alias_method :collect, :map
     alias_method :flat_map, :map

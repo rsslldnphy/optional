@@ -18,14 +18,16 @@ describe Option::Enumerable do
     end
   end
 
+  describe "#map_through" do
+    it "allows mapping through multiple methods" do
+      Some[cat, dog].map_through(:name, :chars, :first).should eq Some["M", "D"]
+    end
+  end
+
   describe "#map" do
 
     it "maps a some to a some" do
       Some[cat, dog].map(&:name).should eq Some["MOGGIE!", "DOGGIE!"]
-    end
-
-    it "allows cool chaining" do
-      Some[cat, dog].map(:name, :chars, :first).should eq Some["M", "D"]
     end
 
     it "also works for collect" do
@@ -55,7 +57,9 @@ describe Option::Enumerable do
 
   describe "#juxt" do
     it "collects the results of calling the passed methods" do
+
       Some[cat].juxt(:name, :class).should eq Some["MOGGIE!", Cat]
+
       Some[1,2,3].juxt(:pred, :succ).should eq Some[[0, 2], [1, 3], [2, 4]]
     end
 
