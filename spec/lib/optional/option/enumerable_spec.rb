@@ -55,6 +55,14 @@ describe Option::Enumerable do
     end
   end
 
+  describe "#flat_map" do
+    it 'works as expected over an array of options' do
+      [None, Some[3], None, Some[2]].flat_map do |x|
+        x.map(&:succ)
+      end.should eq [4,3]
+    end
+  end
+
   describe "#juxt" do
     it "collects the results of calling the passed methods" do
 
