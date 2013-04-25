@@ -61,6 +61,11 @@ describe Option::Enumerable do
         x.map(&:succ)
       end.should eq [4,3]
     end
+
+    it 'also works for a some that returns a nested some' do
+      x = Some[stub(y: Some[4])]
+      x.flat_map(&:y).should eq Some[4]
+    end
   end
 
   describe "#juxt" do

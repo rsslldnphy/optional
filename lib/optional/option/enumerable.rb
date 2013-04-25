@@ -27,8 +27,11 @@ module Option
       from_array super
     end
     alias_method :collect, :map
-    alias_method :flat_map, :map
     alias_method :collect_concat, :map
+
+    def flat_map(&block)
+      map(&block).flatten
+    end
 
     def detect
       from_value super
