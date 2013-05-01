@@ -20,7 +20,7 @@ module Option
     end
 
     def map_through(*methods)
-      methods.reduce(self) { |acc, m| acc.map(&m) }
+      map &methods.reduce(->(x){x}){ |acc, m| ->(x) { acc.call(x).send(m) } }
     end
 
     def map
