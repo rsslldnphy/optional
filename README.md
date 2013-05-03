@@ -9,7 +9,7 @@ There are, crucially, two distinct types of values (or rather lack of values) th
 There are values that should always be present - and here the fact that they are `nil` actually indicates that an error has occurred somewhere else in your program - and those values that *may or may not be set* - where each case is valid.
 For example, a person may or may not be wearing a hat.
 
-Using `nil` to represent these optional values leads to lots of ugly defensive coding - or worse, if you forget the ugly defensive coding in even a single place, to `nil`s leaking out into the rest of your program, causing it to blow up at some later point, from where the it might be hard to track back to the original cause of the problem.
+Using `nil` to represent these optional values leads to lots of ugly defensive coding - or worse, if you forget the ugly defensive coding in even a single place, to `nil`s leaking out into the rest of your program, causing it to blow up at some later point, from where it might be hard to track back to the original cause of the problem.
 
 `Option`s, a construct found in functional languages such as ML, Haskell (as the Maybe monad), F# and Scala, provide an alternative.
 They consist of, at the most basic level, a container that either contains a value (`Some` value) or does not (`None`).
@@ -144,3 +144,52 @@ You can also use lambdas as part of the match clauses like this:
       m.some ->(x){ x.is_a? Array } { puts "This will be printed if the value is an array (whose length is less than or equal to 2)" }
       m.none { puts "This is printed if I'm passed a None" }
     end
+
+## Extra fun and goodness
+
+What's been described so far is what you'd usually expect from `Option`s in other languages.
+`Optional`, however, provides a few extra bits and pieces you may want to have a play with.
+
+## Logical operators (sort of logical, anyway)
+
+Got two optional values and want to do something only if they *both* have values? Use `&`:
+
+    Some[5] & Some[6] # => Some[5,6]
+    Some[5] & None    # => None
+    None & Some[5]    # => None
+    None & None       # => None
+
+Got two optional values, either of which might be `None`, and want to do something with one of them, doesn't matter which? Use `|`:
+
+    Some[5] | Some[6] # => Some[5]
+    Some[5] & None    # => Some[5]
+    None & Some[6]    # => Some[6]
+    None & None       # => None
+
+NB. Technically, an `Option` should only have up to one value, but to allow the `&` operator and similar things `Optional` sort of cheats by treating 'multiple values' as a single value of type `Array`.
+
+## Mapping through multiple functions
+
+You might find yourself needing to map an optional value through a number of functions. There's a handy way to do this with `Option`s:
+
+    p = Person.create(name: "Russell!")
+
+    Some[p].map_through(:name, :upcase) # => Some["RUSSELL!"]
+    None.map_through(:name, :upcase) # => None
+
+## Juxtaposing the result of multiple functions
+
+This one is nicked from Clojure (there might be other languages that have it, I don't know). Call a list of functions on an option value, returning a `Some` of their results:
+
+    p = Person.create(name: "Russell!", age: 29, hat: :fedora)
+
+    Some[p].juxt(:name, :age, :class) # => Some["Russell", 29, Person]
+    None.juxt(:name, :age, :class) # => None
+
+If you're feeling adventurous you could always monkey patch this onto `Object` so it's available for everything. Might come in useful.
+
+## That's about it
+
+I hope you find `Option`s useful. Let me know if you do: I'm @rsslldnphy on that Twitter. I'm very enthusiastic about optional types and functional programming techniques in general, so if you have a question or want advice on using options in your project I'll be happy to answer!
+
+If you'd like to contribute, create a pull request for the feature or fix you have in mind. That way we can discuss whether it's a good fit and how best to approach it before you start on the code. Contributions very welcome!
