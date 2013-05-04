@@ -114,6 +114,12 @@ You can simply use the `collection` key when rendering the partial - you don't e
 
     <%= render partial: 'hat', collection: @person.hat %>
 
+And one last useful example, `flatten`:
+
+    Some[Some[5], None, Some[7]].flatten # => Some[5,7]
+
+    [Some[6], None, Some[999]].flatten   # => [6,999]
+
 ## Pattern-matching
 
 You'll find `Option`s in many functional languages such as ML, Haskell (as the Maybe monad), Scala and F#.
