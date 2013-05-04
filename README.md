@@ -154,17 +154,17 @@ What's been described so far is what you'd usually expect from `Option`s in othe
 
 Got two optional values and want to do something only if they *both* have values? Use `&`:
 
-    Some[5] & Some[6] # => Some[5,6]
-    Some[5] & None    # => None
-    None & Some[5]    # => None
-    None & None       # => None
+    Some[5] & Some[6]  # => Some[5,6]
+    Some[5] & None     # => None
+    None    & Some[5]  # => None
+    None    & None     # => None
 
 Got two optional values, either of which might be `None`, and want to do something with one of them, doesn't matter which? Use `|`:
 
-    Some[5] | Some[6] # => Some[5]
-    Some[5] | None    # => Some[5]
-    None | Some[6]    # => Some[6]
-    None | None       # => None
+    Some[5] | Some[6]  # => Some[5]
+    Some[5] | None     # => Some[5]
+    None    | Some[6]  # => Some[6]
+    None    | None     # => None
 
 NB. Technically, an `Option` should only have up to one value, but to allow the `&` operator and similar things `Optional` sort of cheats by treating 'multiple values' as a single value of type `Array`.
 
