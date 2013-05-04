@@ -11,7 +11,7 @@ For example, a person may or may not be wearing a hat.
 
 Using `nil` to represent these optional values leads to lots of ugly defensive coding - or worse, if you forget the ugly defensive coding in even a single place, to `nil`s leaking out into the rest of your program, causing it to blow up at some later point, from where it might be hard to track back to the original cause of the problem.
 
-`Option`s, a construct found in functional languages such as ML, Haskell (as the Maybe monad), F# and Scala, provide an alternative.
+`Option`s, a construct found in many functional languages, provide an alternative.
 They consist of, at the most basic level, a container that either contains a value (`Some` value) or does not (`None`).
 Because its a container, you can't access the value directly, so client code is forced to deal with both the case that it's there and that it isn't.
 It's a simple concept but leads to some surprisingly powerful uses.
