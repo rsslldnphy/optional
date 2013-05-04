@@ -108,7 +108,7 @@ And here's `map` (or `collect`):
     Some["caterpillar!"].map(&:upcase) # => Some["CATERPILLAR!"]
     None.map(&:upcase) # => None
 
-`Options being enumerable comes in handy if you're using rails, too.
+Options being enumerable comes in handy if you're using rails, too.
 Let's say you have a person model that has an `Option[Hat]`, and you want to render a `Hat` partial only if the person has one.
 You can simply use the `collection` key when rendering the partial - you don't even need an `if`:
 
