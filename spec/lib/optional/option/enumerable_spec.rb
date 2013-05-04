@@ -5,19 +5,6 @@ describe Option::Enumerable do
   let (:cat) { Cat.new("MOGGIE!") }
   let (:dog) { Dog.new("DOGGIE!") }
 
-  it "makes radek less sad :-(" do
-    Some[4].each { |e| e.should be_a Fixnum }
-    Some[4,5].each { |e| e.should be_a Fixnum }
-  end
-
-  describe "#do" do
-    it "allows ops with side effects to be performed using the value as part of a method chain" do
-      names = ""
-      Some[cat].do { |c| names << c.name }.map(&:name).should eq Some["MOGGIE!"]
-      names.should eq "MOGGIE!"
-    end
-  end
-
   describe "#map_through" do
     it "allows mapping through multiple methods" do
       Some[cat, dog].map_through(:name, :chars, :first).should eq Some["M", "D"]

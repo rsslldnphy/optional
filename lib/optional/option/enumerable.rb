@@ -2,11 +2,6 @@ module Option
   module Enumerable
     include ::Enumerable
 
-    def do &block
-      each &block
-      self
-    end
-
     def to_ary
       to_a
     end
