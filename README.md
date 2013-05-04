@@ -132,7 +132,7 @@ You can also add cases that assert based on the content of the option:
     option.match do |m|
       m.some(:fedora) { puts "This will be printed only if I'm passed a Some[:fedora]" }
       m.some(:trilby) { puts "This will be printed only if I'm passed a Some[:trilby]" }
-      m.none { puts "This is printed if I'm passed a None" }
+      m.none          { puts "This is printed if I'm passed a None" }
     end
 
 The first case that matches is the one the match clause evaluates to.
@@ -140,9 +140,9 @@ The first case that matches is the one the match clause evaluates to.
 You can also use lambdas as part of the match clauses like this:
 
     option.match do |m|
-      m.some ->(x){ x.length > 2 } { puts "This will be printed if the value's length is greater than 2" }
-      m.some ->(x){ x.is_a? Array } { puts "This will be printed if the value is an array (whose length is less than or equal to 2)" }
-      m.none { puts "This is printed if I'm passed a None" }
+      m.some ->(x){ x.length > 2 }  { puts "Printed if value's length is > 2" }
+      m.some ->(x){ x.is_a? Array } { puts "Printed if value is an array (with lengt <= 2)" }
+      m.none                        { puts "This is printed if I'm passed a None" }
     end
 
 ## Extra fun and goodness
@@ -162,9 +162,9 @@ Got two optional values and want to do something only if they *both* have values
 Got two optional values, either of which might be `None`, and want to do something with one of them, doesn't matter which? Use `|`:
 
     Some[5] | Some[6] # => Some[5]
-    Some[5] & None    # => Some[5]
-    None & Some[6]    # => Some[6]
-    None & None       # => None
+    Some[5] | None    # => Some[5]
+    None | Some[6]    # => Some[6]
+    None | None       # => None
 
 NB. Technically, an `Option` should only have up to one value, but to allow the `&` operator and similar things `Optional` sort of cheats by treating 'multiple values' as a single value of type `Array`.
 
