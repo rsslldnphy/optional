@@ -1,6 +1,10 @@
 module Option
   include Option::Enumerable
 
+  def self.[] value
+    value.nil? ? None : Some[value]
+  end
+
   def match(&block)
     Match.new.tap { |m| block.call(m) }.evaluate(self)
   end

@@ -39,4 +39,11 @@ describe Option do
     end
   end
 
+  it 'can create a some from a passed value' do
+    Option[4].should eq Some[4]
+  end
+
+  it 'can create a none from a passed value' do
+    Option[nil].should be_none
+  end
 end
