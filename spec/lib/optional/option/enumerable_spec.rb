@@ -7,14 +7,14 @@ describe Option::Enumerable do
 
   describe "#map_through" do
     it "allows mapping through multiple methods" do
-      Some[cat, dog].map_through(:name, :chars, :first).should eq Some["M", "D"]
+      Some[cat].map_through(:name, :chars, :first).should eq Some["M"]
     end
   end
 
   describe "#map" do
 
     it "maps a some to a some" do
-      Some[cat, dog].map(&:name).should eq Some["MOGGIE!", "DOGGIE!"]
+      Some[cat].map(&:name).should eq Some["MOGGIE!"]
     end
 
     it "also works for collect" do
@@ -60,7 +60,7 @@ describe Option::Enumerable do
 
       Some[cat].juxt(:name, :class).should eq Some["MOGGIE!", Cat]
 
-      Some[1,2,3].juxt(:pred, :succ).should eq Some[[0, 2], [1, 3], [2, 4]]
+      Some[1].juxt(:pred, :succ).should eq Some[0, 2]
     end
 
     it "also works for nil" do
@@ -143,7 +143,7 @@ describe Option::Enumerable do
     end
 
     it "also works within the some" do
-      Some[3,4,5].reduce(:+).should eq 12
+      Some[3,4,5].reduce(:+).should eq [3,4,5]
     end
   end
 
