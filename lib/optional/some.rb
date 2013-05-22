@@ -8,7 +8,7 @@ class Some
   end
 
   def each &block
-    value.is_a?(Array) ? value.each(&block) : block.call(value)
+    block.call(value)
   end
 
   def none?(&block)
