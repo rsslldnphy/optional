@@ -2,7 +2,7 @@ module Option
   include Option::Enumerable
 
   def self.[] value
-    value.nil? ? None : Some[value]
+    Empty[value] ? None : Some[value]
   end
 
   def match(&block)
@@ -24,5 +24,4 @@ module Option
   def from_value(value)
     value.nil? ? None : Some[value]
   end
-
 end

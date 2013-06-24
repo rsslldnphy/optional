@@ -46,4 +46,16 @@ describe Option do
   it 'can create a none from a passed value' do
     Option[nil].should be_none
   end
+
+  it 'treats empty strings as none' do
+    Option[""].should be_none
+  end
+
+  it 'treats empty collections as none' do
+    Option[[]].should be_none
+  end
+
+  it 'treats empty hashes as none' do
+    Option[{}].should be_none
+  end
 end
