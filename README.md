@@ -114,6 +114,11 @@ You can simply use the `collection` key when rendering the partial - you don't e
 
     <%= render partial: 'hat', collection: @person.hat %>
 
+You can also use `select` and `reject` to assert things about the value:
+
+    Some[5].select(&:odd?) # => Some[5]
+    Some[5].reject(&:odd?) # => None
+
 And one last useful example, `flatten`:
 
     Some[Some[5], None, Some[7]].flatten # => Some[5,7]
