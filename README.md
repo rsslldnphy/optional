@@ -1,6 +1,9 @@
 # optional
 ## option types to make nils a thing of the past
 
+[![Build Status](https://travis-ci.org/rsslldnphy/optional.png?branch=master)](https://travis-ci.org/rsslldnphy/optional)
+[![Code Climate](https://codeclimate.com/github/rsslldnphy/optional.png)](https://codeclimate.com/github/rsslldnphy/optional)
+
 Tony Hoare, inventor of the null reference, calls it his "billion-dollar mistake".
 You will be no stranger to the ubiquitous `NoMethodError: undefined method 'foo' for nil:NilClass`.
 But it doesn't have to be this way.
