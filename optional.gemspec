@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'optional'
-  s.version       = '0.0.6'
+  s.version       = '0.0.7'
   s.date          = '2013-04-19'
   s.summary       = "Optional values with pattern matching"
   s.description   = "Make nils a thing of the past with Options!"
