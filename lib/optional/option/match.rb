@@ -42,7 +42,7 @@ module Option
 
     class SomeClause
 
-      def initialize(guard=always, block)
+      def initialize(guard=always, block=lambda{})
         @guard = guard
         @block = block
       end
@@ -60,7 +60,7 @@ module Option
       attr_reader :block
 
       def guard
-        @guard.is_a?(Proc) ? @guard : ->(x) { x == @guard }
+        @guard.is_a?(Proc) ? @guard : (lambda { |x| x == @guard })
       end
 
     end

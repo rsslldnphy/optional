@@ -33,8 +33,8 @@ describe Option do
 
     it "can take a lambda as a guard to match against" do
       Some[cat].match do |m|
-        m.some ->(pet) { pet.name == "DOGGIE!" } { :fishsticks }
-        m.some ->(pet) { pet.name == "MOGGIE!" } { :canteloupe }
+        m.some lambda { |pet| pet.name == "DOGGIE!" } do :fishsticks end
+        m.some lambda { |pet| pet.name == "MOGGIE!" } do :canteloupe end
       end.should eq :canteloupe
     end
   end

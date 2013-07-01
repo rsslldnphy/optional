@@ -43,14 +43,9 @@ describe Option::Enumerable do
   end
 
   describe "#flat_map" do
-    it 'works as expected over an array of options' do
-      [None, Some[3], None, Some[2]].flat_map do |x|
-        x.map(&:succ)
-      end.should eq [4,3]
-    end
 
-    it 'also works for a some that returns a nested some' do
-      x = Some[stub(y: Some[4])]
+    it 'works for a some that returns a nested some' do
+      x = Some[stub(:y => Some[4])]
       x.flat_map(&:y).should eq Some[4]
     end
   end

@@ -15,7 +15,7 @@ module Option
     end
 
     def map_through(*methods)
-      map &methods.reduce(->(x){x}){ |acc, m| ->(x) { acc.call(x).send(m) } }
+      map &methods.reduce(lambda { |x| x}) { |acc, m| lambda { |x| acc.call(x).send(m) } }
     end
 
     def map
