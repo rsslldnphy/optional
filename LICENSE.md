@@ -1,4 +1,4 @@
-Copyright (c) 2012 On The Beach Ltd
+Copyright (c) 2012 Russell Dunphy
 
 MIT License
 
