@@ -20,7 +20,7 @@ class Optional::Match
   attr_reader :_option, :_result
 
   def always
-    -> (x) { true }
+    ->(x) { true }
   end
 end
 
