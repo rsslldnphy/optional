@@ -13,6 +13,15 @@ describe None do
     expect { subject.value }.to raise_error ValueOfNoneError
   end
 
+  describe "#value_or" do
+    it 'returns the given default' do
+      expect(subject.value_or :default).to eq :default
+    end
+    it 'can also accept a block as a default value' do
+      expect(subject.value_or { :default }).to eq :default
+    end
+  end
+
   context '#to_s' do
     subject { None.to_s }
     it { should eq 'None' }

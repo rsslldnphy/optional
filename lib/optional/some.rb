@@ -30,6 +30,10 @@ class Some
     "Some[#{value.inspect}]"
   end
 
+  def value_or(_=nil)
+    value
+  end
+
   attr_reader :value
 
 end

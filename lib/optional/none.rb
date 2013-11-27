@@ -14,6 +14,10 @@ module None
     fail ValueOfNoneError
   end
 
+  def value_or(default = nil, &block)
+    default || block.call
+  end
+
 end
 
 class ValueOfNoneError < StandardError
