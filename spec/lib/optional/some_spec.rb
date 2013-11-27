@@ -12,6 +12,10 @@ describe Some do
   it { should_not eq Some[:other]  }
   it { should_not eq None          }
 
+  it 'has a value, which can be retrieved' do
+    expect(subject.value).to eq :value
+  end
+
   context '#to_s (creates a readable representation)' do
     subject { Some[:value].to_s }
     it { should eq 'Some[value]' }
