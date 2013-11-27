@@ -2,6 +2,7 @@ class Some
   include Option
 
   def self.[](value)
+    fail NilIsNotSomeError if value.nil?
     new(value)
   end
 
@@ -34,6 +35,13 @@ class Some
     value
   end
 
+  def match(&block)
+    Optional::Match.new(self)._evaluate(&block)
+  end
+
   attr_reader :value
 
+end
+
+class NilIsNotSomeError < StandardError
 end

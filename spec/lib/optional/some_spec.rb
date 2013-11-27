@@ -16,6 +16,10 @@ describe Some do
     expect(subject.value).to eq :value
   end
 
+  it 'cannot be created with a nil value' do
+    expect { Some[nil] }.to raise_error NilIsNotSomeError
+  end
+
   describe '#value_or' do
     it 'returns the value of the `Some`, ignoring the default' do
       expect(subject.value_or :default).not_to eq :default

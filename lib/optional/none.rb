@@ -18,6 +18,10 @@ module None
     default || block.call
   end
 
+  def match(&block)
+    Optional::Match.new(self)._evaluate(&block)
+  end
+
 end
 
 class ValueOfNoneError < StandardError
