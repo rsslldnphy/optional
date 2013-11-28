@@ -1,9 +1,9 @@
 class Some
   include Option
 
-  def self.[](value)
-    fail NilIsNotSomeError if value.nil?
-    new(value)
+  def self.[](*values)
+    fail NilIsNotSomeError if values.first.nil?
+    new(values.size == 1 ? values.first : values)
   end
 
   def initialize(value)
@@ -18,6 +18,14 @@ class Some
     false
   end
 
+  def value_or(_=nil)
+    value
+  end
+
+  def each
+    yield value
+  end
+
   def eql?(other)
     other.is_a?(Some) && value == other.value
   end
@@ -29,10 +37,6 @@ class Some
 
   def inspect
     "Some[#{value.inspect}]"
-  end
-
-  def value_or(_=nil)
-    value
   end
 
   def match(&block)

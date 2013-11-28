@@ -22,13 +22,21 @@ describe None do
     end
   end
 
-  context '#to_s' do
+  describe '#to_s' do
     subject { None.to_s }
     it { should eq 'None' }
   end
 
-  context '#inspect' do
+  describe '#inspect' do
     subject { None.inspect }
     it { should eq 'None' }
+  end
+
+  describe '#each' do
+    it 'does not yield' do
+      count = 0
+      None.each { |x| count += 1 }
+      expect(count).to be_zero
+    end
   end
 end

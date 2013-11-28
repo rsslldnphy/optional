@@ -20,6 +20,14 @@ describe Some do
     expect { Some[nil] }.to raise_error NilIsNotSomeError
   end
 
+  it 'can be created with an empty array' do
+    expect(Some[[]].value).to eq []
+  end
+
+  it 'can be created with multiple values, becoming a `Some[Array]`' do
+    expect(Some[1,2,3].value).to eq [1,2,3]
+  end
+
   describe '#value_or' do
     it 'returns the value of the `Some`, ignoring the default' do
       expect(subject.value_or :default).not_to eq :default
@@ -29,14 +37,21 @@ describe Some do
     end
   end
 
-  context '#to_s (creates a readable representation)' do
+  describe '#to_s (creates a readable representation)' do
     subject { Some[:value].to_s }
     it { should eq 'Some[value]' }
   end
 
-  context '#inspect (calls inspect on the value in turn)' do
+  describe '#inspect (calls inspect on the value in turn)' do
     subject { Some[:value].inspect }
     it { should eq 'Some[:value]' }
   end
 
+  describe '#each' do
+    it 'yields to the block with its value as argument' do
+      count = 0
+      Some[5].each { |value| count += value }
+      expect(count).to eq 5
+    end
+  end
 end
