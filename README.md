@@ -157,6 +157,30 @@ Some[Some[5], None, Some[7]].flatten # => Some[5,7]
 [Some[6], None, Some[999]].flatten   # => [6,999]
 ```
 
+### Plus a few extra treats...
+
+#### Mapping through multiple functions
+
+You might find yourself needing to map an optional value through a number of functions. There's a handy way to do this with `Option`s:
+
+```ruby
+p = Person.create(name: "Russell!")
+
+Some[p].map_through(:name, :upcase) # => Some["RUSSELL!"]
+None.map_through(:name, :upcase) # => None
+```
+
+#### Juxtaposing the result of multiple functions
+
+This one is nicked from Clojure. Call a list of functions on an optional value, returning a `Some` of their results:
+
+```ruby
+p = Person.create(name: "Russell!", age: 29, hat: :fedora)
+
+Some[p].juxt(:name, :age, :class) # => Some["Russell", 29, Person]
+None.juxt(:name, :age, :class) # => None
+```
+
 ## Pattern-matching
 
 You'll find `Option`s in many functional languages such as ML, Haskell (as the Maybe monad), Scala and F#.
