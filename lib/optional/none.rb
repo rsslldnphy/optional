@@ -26,6 +26,17 @@ module None
     Optional::Match.new(self)._evaluate(&block)
   end
 
+  def & _
+    self
+  end
+
+  def | other
+    other
+  end
+
+  def merge other
+    other
+  end
 end
 
 class ValueOfNoneError < StandardError

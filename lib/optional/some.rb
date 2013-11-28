@@ -31,13 +31,23 @@ class Some
   end
   alias == eql?
 
-  def to_s
-    "Some[#{value}]"
+  def & other
+    other.map { |v| Array(value) + Array(v) }
   end
 
-  def inspect
-    "Some[#{value.inspect}]"
+  def | other
+    self
   end
+
+  def merge other, &block
+    merged = self & other | self
+    block.nil? || other.none? ? merged : merged.map { |a, b| block.call(a, b) }
+  end
+
+  def to_s
+    "Some#{Array(value)}"
+  end
+  alias inspect to_s
 
   def match(&block)
     Optional::Match.new(self)._evaluate(&block)

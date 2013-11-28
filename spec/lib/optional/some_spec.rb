@@ -39,12 +39,22 @@ describe Some do
 
   describe '#to_s (creates a readable representation)' do
     subject { Some[:value].to_s }
-    it { should eq 'Some[value]' }
+    it { should eq 'Some[:value]' }
+
+    context 'when the value is an array' do
+      subject { Some[:value, :other].to_s }
+      it { should eq 'Some[:value, :other]' }
+    end
   end
 
   describe '#inspect (calls inspect on the value in turn)' do
     subject { Some[:value].inspect }
     it { should eq 'Some[:value]' }
+
+    context 'when the value is an array' do
+      subject { Some[:value, :other].inspect }
+      it { should eq 'Some[:value, :other]' }
+    end
   end
 
   describe '#each' do
