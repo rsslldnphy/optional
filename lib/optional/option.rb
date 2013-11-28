@@ -42,5 +42,13 @@ module Option
     Option[*to_a.flatten]
   end
 
+  def map_through(*methods)
+    methods.reduce(self) { |acc, m| acc.map(&m) }
+  end
+
+  def juxt(*methods)
+    Option[*methods.flat_map { |m| map(&m) }]
+  end
+
   alias to_ary to_a
 end

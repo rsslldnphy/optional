@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Option do
+
   context 'creation using the square bracket syntax' do
 
     it 'will return a `Some` if the value is non-nil' do
@@ -12,7 +13,7 @@ describe Option do
     end
   end
 
-  context 'enumerable' do
+  context 'enumerating' do
 
     describe '#map' do
       it 'maps `Some[x]` to `Some[f(x)]`' do
@@ -248,6 +249,28 @@ describe Option do
       it 'flattens an array of nested `Some`s and `None`s to an array' do
         result = [Some[1], None, Some[Some[2, 3]], None, None, [4]].flatten
         expect(result).to eq [1, 2, 3, 4]
+      end
+    end
+
+    describe '#map_through' do
+      it 'maps `Some[x]` to `Some[f(g(x))]`' do
+        result = Some[:cat].map_through(:to_s, :upcase, :to_sym)
+        expect(result).to eq Some[:CAT]
+      end
+      it 'maps `None` to `None`' do
+        result = None.map_through(:to_s, :upcase, :to_sym)
+        expect(result).to eq None
+      end
+    end
+
+    describe '#juxt' do
+      it 'calls each of the passed functions on its value, returning an `Some[Array]` of the results' do
+        result = Some[0].juxt(:zero?, :pred, :succ)
+        expect(result).to eq Some[true, -1, 1]
+      end
+      it 'maps to a `None` when called on a `None`' do
+        result = None.juxt(:zero?, :pred, :succ)
+        expect(result).to eq None
       end
     end
   end
