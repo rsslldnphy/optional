@@ -245,3 +245,39 @@ option.match do |m|
   m.some(~:empty?) { "This will match a Some with a value that responds to `empty?` with true" }
 end
 ```
+
+## Logical operators (sort of logical, anyway)
+
+What's been described so far is what you'd usually expect from `Option`s in other languages.
+`Optional`, however, provides a few extra bits and pieces you may want to have a play with.
+
+Got two optional values and want to do something only if they *both* have values? Use `&`:
+
+```ruby
+Some[5] & Some[6]  # => Some[5,6]
+Some[5] & None     # => None
+None    & Some[5]  # => None
+None    & None     # => None
+```
+
+Got two optional values, either of which might be `None`, and want to do something with one of them, doesn't matter which? Use `|`:
+
+```ruby
+Some[5] | Some[6]  # => Some[5]
+Some[5] | None     # => Some[5]
+None    | Some[6]  # => Some[6]
+None    | None     # => None
+```
+
+Want to merge two options together?
+
+```ruby
+Some[5].merge(Some[6])      # => Some[5,6]
+Some[5].merge(Some[6], &:+) # => Some[11]
+Some[5].merge(None)         # => Some[5]
+Some[5].merge(None, &:+)    # => Some[5]
+None.merge(Some[5])         # => Some[5]
+None.merge(Some[5], &:+)    # => Some[5]
+```
+
+NB. Technically, an `Option` should only have up to one value, but to allow the `&` operator and similar things `Optional` sort of cheats by treating 'multiple values' as a single value of type `Array`.
