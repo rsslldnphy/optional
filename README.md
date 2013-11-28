@@ -3,6 +3,7 @@
 
 [![Build Status](https://travis-ci.org/rsslldnphy/optional.png)](https://travis-ci.org/rsslldnphy/optional)
 [![Code Climate](https://codeclimate.com/github/rsslldnphy/optional.png)](https://codeclimate.com/github/rsslldnphy/optional)
+[![Coverage Status](https://coveralls.io/repos/rsslldnphy/optional/badge.png)](https://coveralls.io/r/rsslldnphy/optional)
 
 Tony Hoare, inventor of the null reference, calls it his "billion-dollar mistake".
 You will be no stranger to the ubiquitous `NoMethodError: undefined method 'foo' for nil:NilClass`.
