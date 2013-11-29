@@ -9,7 +9,7 @@ class Optional::Match
   end
 
   def some(match = always, &block)
-    @_result ||= block.call(_option.value) if _option.some? && match === _option.value
+    @_result ||= block.call(_option.value) if _option.grep(match).some?
   end
 
   def none(&block)
