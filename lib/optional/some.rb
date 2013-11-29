@@ -31,6 +31,10 @@ class Some
   end
   alias == eql?
 
+  def hash
+    value.hash
+  end
+
   def & other
     other.map { |v| Array(value) + Array(v) }
   end

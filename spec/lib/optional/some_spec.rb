@@ -64,4 +64,8 @@ describe Some do
       expect(count).to eq 5
     end
   end
+
+  it 'is a valid hash key' do
+    expect({ Some[:foo] => :success }.fetch(Some[:foo])).to eq :success
+  end
 end
