@@ -23,6 +23,10 @@ class Optional::Match
   private
   attr_reader :_option, :_result
 
+  def method_missing(name, *args, &block)
+    # swallow everything for compatibility with id
+  end
+
   def always
     ->(x) { true }
   end

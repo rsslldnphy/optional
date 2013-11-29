@@ -68,6 +68,16 @@ describe Optional::Match do
     end
   end
 
+  describe 'any other match attempt' do
+    it 'does not cause an error but will not be matched' do
+      result = None.match do |m|
+        m.ashaoeushaeouhasoeuhasoehusanoehu { "No match but no error" }
+        m.none { "matched safely!" }
+      end
+      expect(result).to eq "matched safely!"
+    end
+  end
+
   describe 'wildcard (underscore) match' do
     it 'matches `None`' do
       result = None.match do |m|
