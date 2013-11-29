@@ -16,6 +16,10 @@ class Optional::Match
     @_result ||= block.call if _option.none?
   end
 
+  def _(&block)
+    @_result ||= block.call
+  end
+
   private
   attr_reader :_option, :_result
 

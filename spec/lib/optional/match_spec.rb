@@ -67,4 +67,22 @@ describe Optional::Match do
       end.to raise_error BadMatchError
     end
   end
+
+  describe 'wildcard (underscore) match' do
+    it 'matches `None`' do
+      result = None.match do |m|
+        m.some { "doesn't match"    }
+        m._    { "matches anything" }
+      end
+      expect(result).to eq "matches anything"
+    end
+
+    it 'matches `Some`' do
+      result = Some[:foo].match do |m|
+        m.none { "doesn't match"    }
+        m._    { "matches anything" }
+      end
+      expect(result).to eq "matches anything"
+    end
+  end
 end
